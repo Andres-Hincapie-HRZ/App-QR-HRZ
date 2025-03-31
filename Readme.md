@@ -28,11 +28,9 @@ Un generador de códigos QR profesional, minimalista y responsivo desarrollado c
 ## 🔧 Instalación
 
 1. Clona este repositorio:
-git clone https://github.com/TU-USUARIO/generador-qr.git
+git clone https://github.com/Andres-Hincapie-HRZ/App-QR-HRZ.git
 
 2. Abre el archivo `index.html` en tu navegador
-
-O simplemente visita: [URL de tu sitio web si lo desplegas]
 
 ## 💻 Uso
 
@@ -63,9 +61,11 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.m
 
 ## 👤 Autor
 
-[Tu Nombre]
-- GitHub: [@tu-usuario](https://github.com/tu-usuario)
-- LinkedIn: [Tu Perfil](https://linkedin.com/in/tu-perfil)
+Andrés Hincapié
+- GitHub: [@Andres-Hincapie-HRZ](https://github.com/Andres-Hincapie-HRZ)
+- Instagram: [@andres_hincapie.hrz](https://instagram.com/andres_hincapie.hrz)
+- Twitter: [@AndrsHi61249652](https://twitter.com/AndrsHi61249652)
+- YouTube: [@ELITEPROGRAMMERSGLOBAL](https://youtube.com/@ELITEPROGRAMMERSGLOBAL)
 
 ## 🌟 Agradecimientos
 
@@ -73,7 +73,7 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.m
 - A los creadores de QRCode.js
 
 ---
-⌨️ con ❤️ por [Tu Nombre]
+⌨️ con ❤️ por Andrés Hincapié
 
 # Descripción corta para GitHub:
 📱 Generador de Códigos QR minimalista y responsivo. Crea y descarga códigos QR de manera rápida y sencilla. Desarrollado con HTML, CSS y JavaScript puro. Diseño elegante en blanco y negro, optimizado para todos los dispositivos.
