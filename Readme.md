@@ -2,6 +2,8 @@
 
 Un generador de códigos QR profesional, minimalista y responsivo desarrollado con HTML, CSS y JavaScript puro.
 
+![image](https://github.com/user-attachments/assets/9480daf0-d64f-49a2-bb5c-8cae8a2f3e3b)
+
 ## 🚀 Características
 
 - Diseño minimalista en blanco y negro
