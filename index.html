@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!--
+* APP QR HRZ
+* Autor: Andrés Hincapié
+* Fecha: 2024-01-17
+* Descripción: Generador de códigos QR profesional con funcionalidad de descarga
+-->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Código QR Profesional</title>
+    <!-- Importación de Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Estilos generales del cuerpo */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Contenedor principal */
+        .contenedor {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin: 1rem;
+            max-width: 600px;
+            width: 90%;
+            box-sizing: border-box;
+        }
+
+        /* Estilos del título */
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+        }
+
+        /* Contenedor de entrada de datos */
+        .entrada {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-direction: row;
+            width: 100%;
+        }
+
+        /* Diseño responsivo para móviles */
+        @media (max-width: 480px) {
+            .entrada {
+                flex-direction: column;
+            }
+
+            input, button {
+                width: 100%;
+            }
+        }
+
+        /* Estilos del campo de entrada */
+        input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Estilos de botones */
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: clamp(0.9rem, 4vw, 1rem);
+            white-space: nowrap;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        /* Contenedor de resultados */
+        .resultado {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        /* Contenedor del código QR */
+        #qrContainer {
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        #qrContainer img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Estilos para la previsualización de favicon */
+        .favicon-preview {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+        }
+
+        /* Estilos para información del enlace */
+        .info-enlace {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        /* Estilos del botón de descarga */
+        #botonDescargar {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: none;
+            font-weight: 500;
+        }
+
+        #botonDescargar:hover {
+            background-color: #555;
+        }
+
+        /* Estilos básicos del contenedor QR */
+        #qrContainer {
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Clases ocultas para redes sociales */
+        .qr-whatsapp,
+        .qr-facebook,
+        .qr-instagram,
+        .qr-twitter,
+        .qr-default {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor principal de la aplicación -->
+    <div class="contenedor">
+        <h1><i class="fas fa-qrcode"></i> Generador de Código QR - HRZ</h1>
+        <!-- Sección de entrada de datos -->
+        <div class="entrada">
+            <input type="text" id="enlaceInput" placeholder="Ingresa tu enlace aquí" />
+            <button onclick="generarQR()">Generar QR</button>
+        </div>
+        <!-- Sección de resultados -->
+        <div class="resultado">
+            <div id="qrContainer"></div>
+            <button id="botonDescargar" onclick="descargarQR()">
+                Descargar QR
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts necesarios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        // Función para generar el código QR
+        async function generarQR() {
+            const enlace = document.getElementById('enlaceInput').value;
+            const qrContainer = document.getElementById('qrContainer');
+            const botonDescargar = document.getElementById('botonDescargar');
+
+            // Validación de entrada
+            if (!enlace) {
+                alert('Por favor, ingresa un enlace');
+                return;
+            }
+
+            // Limpiar contenedor QR anterior
+            qrContainer.innerHTML = '';
+
+            // Configuración y generación del código QR
+            new QRCode(qrContainer, {
+                text: enlace,
+                width: 256,
+                height: 256,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // Mostrar botón de descarga
+            botonDescargar.style.display = 'block';
+        }
+
+        // Función para descargar el código QR generado
+        function descargarQR() {
+            const canvas = document.querySelector('#qrContainer canvas');
+            if (canvas) {
+                // Crear un enlace temporal para la descarga
+                const enlaceDescarga = document.createElement('a');
+                enlaceDescarga.download = 'codigo-qr.png';
+                enlaceDescarga.href = canvas.toDataURL('image/png');
+                
+                // Proceso de descarga
+                document.body.appendChild(enlaceDescarga);
+                enlaceDescarga.click();
+                document.body.removeChild(enlaceDescarga);
+            }
+        }
+    </script>
+</body>
+</html> 
